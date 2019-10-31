@@ -1,0 +1,1884 @@
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "departments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (12.8ms)[0m  [1m[35mCREATE TABLE "departments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "sections"[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "sections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "department_id" integer)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "students"[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "students" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "department_id" integer, "section_id" integer, "roll_no" varchar)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "admin" boolean DEFAULT 0)[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (8.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20191011151513)[0m
+  [1m[35m (2.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20190916173603),
+(20190916172152),
+(20190916172534),
+(20190916173815),
+(20191009081224),
+(20191009081434),
+(20191011141557),
+(20190916172431),
+(20190916173457);
+
+[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2019-10-14 16:20:05.590174"], ["updated_at", "2019-10-14 16:20:05.590174"]]
+  [1m[35m (4.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------------
+DepartmentTest: test_Should_define_Department_model
+---------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------
+DepartmentTest: test_Should_not_save_non-unique_departments
+-----------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.5ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:05.670409"], ["updated_at", "2019-10-14 16:20:05.670409"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------
+DepartmentTest: test_Should_create_a_new_department_with_name
+-------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:05.699202"], ["updated_at", "2019-10-14 16:20:05.699202"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------------
+DepartmentTest: test_Should_not_save_departments_with_missing_names
+-------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE "departments"."name" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE "departments"."name" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------
+DepartmentTest: test_lower_case_department_must_be_replaced_with_upcase
+-----------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "eee"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:05.704886"], ["updated_at", "2019-10-14 16:20:05.704886"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------
+SectionsControllerTest: test_Should_redirect_to_home_page_if_not_logged_in
+--------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$038S/62vAsd3.yVmQXY.WezPzNX57xqXJYeYUOWjwkJVrkgmJ8836"], ["created_at", "2019-10-14 16:20:05.923029"], ["updated_at", "2019-10-14 16:20:05.923029"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:06 +0530
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by SectionsController#index as HTML
+Completed 401 Unauthorized in 8ms (ActiveRecord: 0.0ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-10-14 21:50:06 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_links.html.erb (0.8ms)
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application (46.6ms)
+Completed 200 OK in 9764ms (Views: 9761.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------
+SectionsControllerTest: test_Should_create_new_section
+------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$mKu65YirmtUwIEeYgf8i2.zGxGa7M.9UBqwEMvpsodOi5cQ3Coihe"], ["created_at", "2019-10-14 16:20:15.825355"], ["updated_at", "2019-10-14 16:20:15.825355"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$RF3rpzAflO1W.2upwFmgBebgdD3S0Quzinbx6ZaVcUClck17mh7rq"], ["created_at", "2019-10-14 16:20:15.827948"], ["updated_at", "2019-10-14 16:20:15.827948"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 5ms (Views: 2.9ms | ActiveRecord: 0.1ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 20ms (Views: 18.2ms | ActiveRecord: 0.1ms)
+Started POST "/departments" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by DepartmentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "department"=>{"name"=>"NEW DEPT"}, "commit"=>"Create Department"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "NEW DEPT"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "NEW DEPT"], ["created_at", "2019-10-14 16:20:15.874798"], ["updated_at", "2019-10-14 16:20:15.874798"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/departments
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by DepartmentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.1ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 12ms (Views: 2.4ms | ActiveRecord: 0.3ms)
+Started GET "/sections/new" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by SectionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 11ms (Views: 5.0ms | ActiveRecord: 0.3ms)
+Started POST "/sections" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by SectionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "section"=>{"name"=>"A", "department_id"=>"1"}, "commit"=>"Create Section"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:15.925991"], ["updated_at", "2019-10-14 16:20:15.925991"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/sections
+Completed 302 Found in 16ms (ActiveRecord: 0.4ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 4ms (Views: 2.4ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------
+SectionsControllerTest: test_Should_navigate_to_new_section_on_click
+--------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$BkTllgaYHbJdP1hp9yU4VuLV.zCxUQwkDxUr9lPhYE4rIbRnAWnKC"], ["created_at", "2019-10-14 16:20:15.949251"], ["updated_at", "2019-10-14 16:20:15.949251"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$xCdWCFg9i0xGJsMfx..qX.qfoiN5xoynehiWDKZLCA.Flec3yxnMG"], ["created_at", "2019-10-14 16:20:15.952429"], ["updated_at", "2019-10-14 16:20:15.952429"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 3ms (Views: 2.9ms | ActiveRecord: 0.0ms)
+Started GET "/sections/new" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by SectionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 4ms (Views: 2.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------
+SectionsControllerTest: test_Should_not_show_create_button_for_non-admin_users
+------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (4.0ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$/UHaFgK50sheirfu2aJGouxnFSorxgqBp9Sq/5ODDye5mTWj1aepO"], ["created_at", "2019-10-14 16:20:15.977765"], ["updated_at", "2019-10-14 16:20:15.977765"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:15 +0530
+Processing by StudentsController#index as HTML
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.2ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 14ms (Views: 7.6ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+SectionsControllerTest: test_Should_get_all_sections
+----------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$rTngT0uPt2OcXti5ydlxg.6fLZCrp63q139gZVo5EvBb1j/Moc9P."], ["created_at", "2019-10-14 16:20:16.013803"], ["updated_at", "2019-10-14 16:20:16.013803"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 6ms (Views: 5.4ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.8ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------
+StudentTest: test_Should_define_name
+------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------
+StudentTest: test_Deleting_a_department_should_delete_all_students
+------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:16.032744"], ["updated_at", "2019-10-14 16:20:16.032744"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.034745"], ["updated_at", "2019-10-14 16:20:16.034745"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "A"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A"], ["email", "asd@email.com"], ["created_at", "2019-10-14 16:20:16.060727"], ["updated_at", "2019-10-14 16:20:16.060727"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT "sections".* FROM "sections" WHERE "sections"."department_id" = ?[0m  [["department_id", 1]]
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."section_id" = ?[0m  [["section_id", 1]]
+  [1m[36mStudent Destroy (0.1ms)[0m  [1m[31mDELETE FROM "students" WHERE "students"."id" = ?[0m  [["id", 1]]
+  [1m[36mSection Destroy (0.0ms)[0m  [1m[31mDELETE FROM "sections" WHERE "sections"."id" = ?[0m  [["id", 1]]
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."department_id" = ?[0m  [["department_id", 1]]
+  [1m[36mDepartment Destroy (0.0ms)[0m  [1m[31mDELETE FROM "departments" WHERE "departments"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT  "students".* FROM "students" WHERE "students"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------
+StudentTest: test_Should_define_roll_no
+---------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------
+StudentTest: test_Should_fail_students_for_bad_section_and_department_id
+------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "fw"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StudentTest: test_Should_fail_duplicate_students
+------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:16.088622"], ["updated_at", "2019-10-14 16:20:16.088622"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.090179"], ["updated_at", "2019-10-14 16:20:16.090179"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "FW"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "FW"], ["created_at", "2019-10-14 16:20:16.092312"], ["updated_at", "2019-10-14 16:20:16.092312"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "FW"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------------------------
+StudentTest: test_Deleting_a_section_should_delete_all_students
+---------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.5ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:16.108109"], ["updated_at", "2019-10-14 16:20:16.108109"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.2ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.109596"], ["updated_at", "2019-10-14 16:20:16.109596"], ["department_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "A"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.2ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A"], ["email", "asd@email.com"], ["created_at", "2019-10-14 16:20:16.117771"], ["updated_at", "2019-10-14 16:20:16.117771"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."section_id" = ?[0m  [["section_id", 1]]
+  [1m[36mStudent Destroy (0.0ms)[0m  [1m[31mDELETE FROM "students" WHERE "students"."id" = ?[0m  [["id", 1]]
+  [1m[36mSection Destroy (0.1ms)[0m  [1m[31mDELETE FROM "sections" WHERE "sections"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT  "students".* FROM "students" WHERE "students"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------------
+StudentTest: test_Should_fail_students_for_missing_required_properties
+----------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE "students"."name" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+StudentTest: test_Should_create_a_student_and_persist
+-----------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.5ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:16.127572"], ["updated_at", "2019-10-14 16:20:16.127572"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.129049"], ["updated_at", "2019-10-14 16:20:16.129049"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "A"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A"], ["email", "asd@email.com"], ["created_at", "2019-10-14 16:20:16.130573"], ["updated_at", "2019-10-14 16:20:16.130573"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------
+StudentTest: test_Should_define_email
+-------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------
+StudentTest: test_Should_define_student_model
+---------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------
+StudentTest: test_Should_generate_roll_no_for_students
+------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:16.133849"], ["updated_at", "2019-10-14 16:20:16.133849"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.135167"], ["updated_at", "2019-10-14 16:20:16.135167"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "fw"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "fw"], ["created_at", "2019-10-14 16:20:16.137304"], ["updated_at", "2019-10-14 16:20:16.137304"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------
+SectionTest: test_Deleting_a_department_should_delete_all_sections
+------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.3ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:16.140467"], ["updated_at", "2019-10-14 16:20:16.140467"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.141848"], ["updated_at", "2019-10-14 16:20:16.141848"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT "sections".* FROM "sections" WHERE "sections"."department_id" = ?[0m  [["department_id", 1]]
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."section_id" = ?[0m  [["section_id", 1]]
+  [1m[36mSection Destroy (0.1ms)[0m  [1m[31mDELETE FROM "sections" WHERE "sections"."id" = ?[0m  [["id", 1]]
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."department_id" = ?[0m  [["department_id", 1]]
+  [1m[36mDepartment Destroy (0.0ms)[0m  [1m[31mDELETE FROM "departments" WHERE "departments"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (3.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------
+SectionTest: test_lower_case_section_must_be_replaced_with_upcase
+-----------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.5ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:16.155935"], ["updated_at", "2019-10-14 16:20:16.155935"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.157554"], ["updated_at", "2019-10-14 16:20:16.157554"], ["department_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+SectionTest: test_Should_create_a_new_section_with_name
+-------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:16.160239"], ["updated_at", "2019-10-14 16:20:16.160239"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.161342"], ["updated_at", "2019-10-14 16:20:16.161342"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------
+SectionTest: test_Should_define_section_model
+---------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------
+RoutesTest: test_Should_define_students_get_routes_properly
+-----------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$Rn7HfnnpX.dsbvskaCvnueKqMK.BRAWhx1OosL8HXyCXlUIGaC4he"], ["created_at", "2019-10-14 16:20:16.165081"], ["updated_at", "2019-10-14 16:20:16.165081"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------
+RoutesTest: test_Should_define_create-students_routes_properly
+--------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$CVAgcPGZh0iBN9sxV1Qd0.UlBncRXhQDQp5C3g3YHSFQYBig0A786"], ["created_at", "2019-10-14 16:20:16.169161"], ["updated_at", "2019-10-14 16:20:16.169161"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+RoutesTest: test_Should_define_create_department_routes_properly
+----------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$O.Y5iOpeU1yiASmn0bNUkOKqFOtO07ylqJ2nBk.SDoP9pNdMhJRNa"], ["created_at", "2019-10-14 16:20:16.181093"], ["updated_at", "2019-10-14 16:20:16.181093"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------
+RoutesTest: test_Should_define_sections_get_routes_properly
+-----------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$8m35szenh3skHC83cIhANevEh/g8aUTHyA2iq10QdmUNG8mqkbnb2"], ["created_at", "2019-10-14 16:20:16.185258"], ["updated_at", "2019-10-14 16:20:16.185258"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------
+RoutesTest: test_Should_define_create_sections_routes_properly
+--------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$TRRNy/thcFqRX9ROODA4J.uZ6TmO18to97AvTKDGj.O3u3ifvF3kO"], ["created_at", "2019-10-14 16:20:16.191058"], ["updated_at", "2019-10-14 16:20:16.191058"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------
+RoutesTest: test_Should_define_root_properly
+--------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$eFz/g2njqTsNcDy3fe01E.5li1DJPkansrJZFVKSrm.VCCvglk81O"], ["created_at", "2019-10-14 16:20:16.194774"], ["updated_at", "2019-10-14 16:20:16.194774"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------
+RoutesTest: test_Should_define_department_get_routes_properly
+-------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$EBTCglfXtHDipMnS/Pp9KOmtwz13pMaCFGHC8HkPbVBxAmKD0LxuC"], ["created_at", "2019-10-14 16:20:16.199176"], ["updated_at", "2019-10-14 16:20:16.199176"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StudentsControllerTest: test_Should_get_all_students
+----------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (4.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$IygjlqUJ/zJLFctQOYYaDeiV/RpwmLH4gHF1o3F.E/5WL4jcRAkBi"], ["created_at", "2019-10-14 16:20:16.203811"], ["updated_at", "2019-10-14 16:20:16.203811"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by StudentsController#index as HTML
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+StudentsControllerTest: test_Should_create_new_Students
+-------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$Xux1cIR2eO3ygknLU5XqAO/6z5yHHHW2UfsNNe2H06zYYuwHI4eI6"], ["created_at", "2019-10-14 16:20:16.226088"], ["updated_at", "2019-10-14 16:20:16.226088"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$.qepWloI/pxFufcpt3..D.cgMhl2XFS0kzn.UeRlCoFS9TxFnWK/K"], ["created_at", "2019-10-14 16:20:16.228664"], ["updated_at", "2019-10-14 16:20:16.228664"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 1ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.1ms)
+Started POST "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "department"=>{"name"=>"NEW DEPT"}, "commit"=>"Create Department"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "NEW DEPT"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "NEW DEPT"], ["created_at", "2019-10-14 16:20:16.253636"], ["updated_at", "2019-10-14 16:20:16.253636"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/departments
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.1ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+Started GET "/sections/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#new as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.1ms)
+Started POST "/sections" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "section"=>{"name"=>"A", "department_id"=>"1"}, "commit"=>"Create Section"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.275127"], ["updated_at", "2019-10-14 16:20:16.275127"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/sections
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 3ms (Views: 1.8ms | ActiveRecord: 0.1ms)
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 1.4ms | ActiveRecord: 0.1ms)
+Started GET "/students/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/new.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 20ms (Views: 15.7ms | ActiveRecord: 0.1ms)
+Started POST "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "student"=>{"name"=>"Arjun", "department_id"=>"1", "section_id"=>"1", "email"=>"arjun@dev.com"}, "commit"=>"Create Student"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "Arjun"], ["LIMIT", 1]]
+  [1m[36mCACHE Section Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Arjun"], ["email", "arjun@dev.com"], ["created_at", "2019-10-14 16:20:16.328406"], ["updated_at", "2019-10-14 16:20:16.328406"], ["department_id", 1], ["section_id", 1], ["roll_no", "new-dept-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/students
+Completed 302 Found in 5ms (ActiveRecord: 0.6ms)
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------------------------------
+StudentsControllerTest: test_Should_navigate_to_new_students_on_click
+---------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$wwfiKmFQ5rPF2oHvyCIALepXmb9XcZTLrgG1AIx4lGi3jnFmBQWPO"], ["created_at", "2019-10-14 16:20:16.338151"], ["updated_at", "2019-10-14 16:20:16.338151"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$kdbRBupW7H60F1VItY8iQuowPcdl9yWRPMLcVVyPsKOtvVMVJ0FZm"], ["created_at", "2019-10-14 16:20:16.342387"], ["updated_at", "2019-10-14 16:20:16.342387"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by StudentsController#index as HTML
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+Started GET "/students/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/new.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 4ms (Views: 1.6ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------
+StudentsControllerTest: test_Should_not_show_create_button_for_non-admin_users
+------------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$ED/E1pEjRrTih5MXhL6zL.9Yk8OmOn3yTuZFCwcwpFR7KU1hD2WTG"], ["created_at", "2019-10-14 16:20:16.360798"], ["updated_at", "2019-10-14 16:20:16.360798"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#index as HTML
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (1.6ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 3ms (Views: 1.4ms | ActiveRecord: 1.6ms)
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------
+StudentsControllerTest: test_Should_redirect_to_home_page_if_not_logged_in
+--------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$A465lfLLqg4RlZJ8XWgC5eLRzfpA5lBqxdPqizV1ODPLLR8ZEgRRe"], ["created_at", "2019-10-14 16:20:16.377558"], ["updated_at", "2019-10-14 16:20:16.377558"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by StudentsController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_links.html.erb (0.2ms)
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 4ms (Views: 2.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StudentsControllerTest: test_Should_display_students_details
+------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$PEO.f/T0Eagxd3QoT7c9zu2VEjuopEMp6Rn81dXougaGjqiY21kAe"], ["created_at", "2019-10-14 16:20:16.394915"], ["updated_at", "2019-10-14 16:20:16.394915"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$O5vzLwAVkbcxmz9rrMVh4uAj9tsm7ZGl8IxiEMJX68D0IKWzBtzGG"], ["created_at", "2019-10-14 16:20:16.400397"], ["updated_at", "2019-10-14 16:20:16.400397"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 8ms (Views: 1.6ms | ActiveRecord: 0.1ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.1ms)
+Started POST "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "department"=>{"name"=>"NEW DEPT"}, "commit"=>"Create Department"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "NEW DEPT"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "NEW DEPT"], ["created_at", "2019-10-14 16:20:16.424820"], ["updated_at", "2019-10-14 16:20:16.424820"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/departments
+Completed 302 Found in 4ms (ActiveRecord: 0.4ms)
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.1ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+Started GET "/sections/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 3ms (Views: 1.8ms | ActiveRecord: 0.1ms)
+Started POST "/sections" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "section"=>{"name"=>"A", "department_id"=>"1"}, "commit"=>"Create Section"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:16.446531"], ["updated_at", "2019-10-14 16:20:16.446531"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/sections
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.2ms)
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+Started GET "/students/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/new.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 4ms (Views: 1.8ms | ActiveRecord: 0.1ms)
+Started POST "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "student"=>{"name"=>"Arjun", "department_id"=>"1", "section_id"=>"1", "email"=>"arjun@dev.com"}, "commit"=>"Create Student"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "Arjun"], ["LIMIT", 1]]
+  [1m[36mCACHE Section Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.2ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Arjun"], ["email", "arjun@dev.com"], ["created_at", "2019-10-14 16:20:16.471766"], ["updated_at", "2019-10-14 16:20:16.471766"], ["department_id", 1], ["section_id", 1], ["roll_no", "new-dept-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/students
+Completed 302 Found in 7ms (ActiveRecord: 0.8ms)
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 3ms (Views: 1.8ms | ActiveRecord: 0.1ms)
+Started GET "/students/1" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by StudentsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT  "students".* FROM "students" WHERE "students"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering students/show.html.erb within layouts/application
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered students/show.html.erb within layouts/application (4.8ms)
+Completed 200 OK in 11ms (Views: 6.9ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------------------------------------------
+DepartmentsControllerTest: test_Should_not_show_create_button_for_non-admin_users
+---------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$xwXKwsJInL3QVgI7IwPcvO/YyDVQPoS5jP41/emchNY2XrRHbyhzK"], ["created_at", "2019-10-14 16:20:16.499591"], ["updated_at", "2019-10-14 16:20:16.499591"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+  [1m[35m (6.8ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------------
+DepartmentsControllerTest: test_Should_redirect_to_home_page_if_not_logged_in
+-----------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$AfeFISmow4T3yl62jWMbe.jb1sGgDiQG5R/9Srn2aOJM0NaTVpDWO"], ["created_at", "2019-10-14 16:20:16.514712"], ["updated_at", "2019-10-14 16:20:16.514712"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_links.html.erb (0.1ms)
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.8ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------
+DepartmentsControllerTest: test_Should_navigate_to_new_department_on_click
+--------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$hQICz7IXo/rhsK0QVyCcQOmJ5upV7MFHFjH1HxUtHuKldjfORcJSy"], ["created_at", "2019-10-14 16:20:16.532150"], ["updated_at", "2019-10-14 16:20:16.532150"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$EMcrFOKbx.Jt3nD5z04RT.KCA/S1.16d1cf.AwVskQnk.O1HMDZJa"], ["created_at", "2019-10-14 16:20:16.534761"], ["updated_at", "2019-10-14 16:20:16.534761"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (1.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+DepartmentsControllerTest: test_Should_create_new_department
+------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$GNWEbJtW9i7Vs6K.1w4QcO9Oe45fa5AjY3Jdj.8A/S.STwDMb1eEG"], ["created_at", "2019-10-14 16:20:16.559282"], ["updated_at", "2019-10-14 16:20:16.559282"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$X/RV9VOSz9BIYS9Wk55I5u01cfNnsbESDHklxhqQKoSDl4C9AcMTi"], ["created_at", "2019-10-14 16:20:16.562938"], ["updated_at", "2019-10-14 16:20:16.562938"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.1ms)
+Started POST "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "department"=>{"name"=>"New Dept"}, "commit"=>"Create Department"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "New Dept"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "NEW DEPT"], ["created_at", "2019-10-14 16:20:16.588820"], ["updated_at", "2019-10-14 16:20:16.588820"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/departments
+Completed 302 Found in 4ms (ActiveRecord: 0.4ms)
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 1.2ms | ActiveRecord: 0.2ms)
+  [1m[35m (1.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+DepartmentsControllerTest: test_Should_get_all_departments
+----------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$mnoUSAeHDMpFPT3FyxV1AuMPdy523NExPQ44.V4IzLabeYdR0gAAO"], ["created_at", "2019-10-14 16:20:16.600116"], ["updated_at", "2019-10-14 16:20:16.600116"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test@test.com"], ["encrypted_password", "$2a$04$SfncYWwvbkRCg/0Tei92teSvcddWMfJcWw2V3b5qoOnStqgC3c.76"], ["created_at", "2019-10-14 16:20:16.606564"], ["updated_at", "2019-10-14 16:20:16.606564"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:16 +0530
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------
+StudentTest: test_Should_create_a_student_and_persist
+-----------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.6ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:46.296199"], ["updated_at", "2019-10-14 16:20:46.296199"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:46.303305"], ["updated_at", "2019-10-14 16:20:46.303305"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "A"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.2ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A"], ["email", "asd@email.com"], ["created_at", "2019-10-14 16:20:46.322661"], ["updated_at", "2019-10-14 16:20:46.322661"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (5.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------------
+StudentTest: test_Should_fail_students_for_missing_required_properties
+----------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE "students"."name" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------------------------
+StudentTest: test_Deleting_a_section_should_delete_all_students
+---------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:46.348317"], ["updated_at", "2019-10-14 16:20:46.348317"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:46.349487"], ["updated_at", "2019-10-14 16:20:46.349487"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "A"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A"], ["email", "asd@email.com"], ["created_at", "2019-10-14 16:20:46.351089"], ["updated_at", "2019-10-14 16:20:46.351089"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."section_id" = ?[0m  [["section_id", 1]]
+  [1m[36mStudent Destroy (0.1ms)[0m  [1m[31mDELETE FROM "students" WHERE "students"."id" = ?[0m  [["id", 1]]
+  [1m[36mSection Destroy (0.0ms)[0m  [1m[31mDELETE FROM "sections" WHERE "sections"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT  "students".* FROM "students" WHERE "students"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------
+StudentTest: test_Should_fail_students_for_bad_section_and_department_id
+------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "fw"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------
+StudentTest: test_Deleting_a_department_should_delete_all_students
+------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (2.9ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:46.369191"], ["updated_at", "2019-10-14 16:20:46.369191"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:46.373106"], ["updated_at", "2019-10-14 16:20:46.373106"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "A"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "A"], ["email", "asd@email.com"], ["created_at", "2019-10-14 16:20:46.374684"], ["updated_at", "2019-10-14 16:20:46.374684"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Load (0.2ms)[0m  [1m[34mSELECT "sections".* FROM "sections" WHERE "sections"."department_id" = ?[0m  [["department_id", 1]]
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."section_id" = ?[0m  [["section_id", 1]]
+  [1m[36mStudent Destroy (0.1ms)[0m  [1m[31mDELETE FROM "students" WHERE "students"."id" = ?[0m  [["id", 1]]
+  [1m[36mSection Destroy (0.0ms)[0m  [1m[31mDELETE FROM "sections" WHERE "sections"."id" = ?[0m  [["id", 1]]
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."department_id" = ?[0m  [["department_id", 1]]
+  [1m[36mDepartment Destroy (0.0ms)[0m  [1m[31mDELETE FROM "departments" WHERE "departments"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT  "students".* FROM "students" WHERE "students"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------
+StudentTest: test_Should_define_student_model
+---------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------
+StudentTest: test_Should_define_name
+------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------
+StudentTest: test_Should_generate_roll_no_for_students
+------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.3ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:46.386115"], ["updated_at", "2019-10-14 16:20:46.386115"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:46.387299"], ["updated_at", "2019-10-14 16:20:46.387299"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "fw"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "fw"], ["created_at", "2019-10-14 16:20:46.389711"], ["updated_at", "2019-10-14 16:20:46.389711"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------
+StudentTest: test_Should_define_email
+-------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StudentTest: test_Should_fail_duplicate_students
+------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.3ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:46.392717"], ["updated_at", "2019-10-14 16:20:46.392717"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:46.393755"], ["updated_at", "2019-10-14 16:20:46.393755"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "FW"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?)[0m  [["name", "FW"], ["created_at", "2019-10-14 16:20:46.402535"], ["updated_at", "2019-10-14 16:20:46.402535"], ["department_id", 1], ["section_id", 1], ["roll_no", "mech-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "FW"], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------
+StudentTest: test_Should_define_roll_no
+---------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+SectionsControllerTest: test_Should_get_all_sections
+----------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$usvIv4Kbeqwm66MGVXiX5ubwhCgVO2CVlJTMOvYTr0tlIDU9rzzmq"], ["created_at", "2019-10-14 16:20:46.464727"], ["updated_at", "2019-10-14 16:20:46.464727"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 351ms (Views: 348.9ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------
+SectionsControllerTest: test_Should_redirect_to_home_page_if_not_logged_in
+--------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$nW0HSoxnAlgctuXC3mQF7.mWvHTxw7LvfXIivxWq9fF0/nN1FvH16"], ["created_at", "2019-10-14 16:20:46.844888"], ["updated_at", "2019-10-14 16:20:46.844888"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by SectionsController#index as HTML
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_links.html.erb (0.8ms)
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application (5.1ms)
+Completed 200 OK in 9ms (Views: 7.4ms | ActiveRecord: 0.0ms)
+  [1m[35m (1.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------
+SectionsControllerTest: test_Should_navigate_to_new_section_on_click
+--------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$ZtLc08rwAl.RT6jEYJ4iKOfhpHShRdU2807Y14sa38pXGO92KO0C6"], ["created_at", "2019-10-14 16:20:46.877658"], ["updated_at", "2019-10-14 16:20:46.877658"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$iOwHBu9bMUD7KolvkGvpueqyEk.oADlK9kuidzv1naZ4kxor0lOrW"], ["created_at", "2019-10-14 16:20:46.880606"], ["updated_at", "2019-10-14 16:20:46.880606"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+Started GET "/sections/new" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by SectionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 4ms (Views: 2.2ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------
+SectionsControllerTest: test_Should_not_show_create_button_for_non-admin_users
+------------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$AkpSQ6db/IE/DOE7D6V9o.yY8ZDl4PUi/fB8C1OtnZ0P/SEQvJMjS"], ["created_at", "2019-10-14 16:20:46.898003"], ["updated_at", "2019-10-14 16:20:46.898003"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by StudentsController#index as HTML
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (1.9ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------
+SectionsControllerTest: test_Should_create_new_section
+------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$6YofiVubCYTg112Nc/5FPucC.tPeTRRbSevwDeqogOMizqbF1XSb."], ["created_at", "2019-10-14 16:20:46.919676"], ["updated_at", "2019-10-14 16:20:46.919676"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$X3Y/c3H4UAZGBommlvHxpOV1EyKChBs96gLs7xCBsg5qVq9NMszeu"], ["created_at", "2019-10-14 16:20:46.922390"], ["updated_at", "2019-10-14 16:20:46.922390"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.0ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 0.1ms)
+Started POST "/departments" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by DepartmentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "department"=>{"name"=>"NEW DEPT"}, "commit"=>"Create Department"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "NEW DEPT"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "NEW DEPT"], ["created_at", "2019-10-14 16:20:46.952945"], ["updated_at", "2019-10-14 16:20:46.952945"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/departments
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by DepartmentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.1ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.1ms)
+Started GET "/sections/new" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by SectionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.1ms)
+Started POST "/sections" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by SectionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "section"=>{"name"=>"A", "department_id"=>"1"}, "commit"=>"Create Section"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:46.986877"], ["updated_at", "2019-10-14 16:20:46.986877"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/sections
+Completed 302 Found in 16ms (ActiveRecord: 0.3ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:46 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------
+SectionTest: test_Deleting_a_department_should_delete_all_sections
+------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "MECH"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "MECH"], ["created_at", "2019-10-14 16:20:46.995218"], ["updated_at", "2019-10-14 16:20:46.995218"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:46.996442"], ["updated_at", "2019-10-14 16:20:46.996442"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Load (0.1ms)[0m  [1m[34mSELECT "sections".* FROM "sections" WHERE "sections"."department_id" = ?[0m  [["department_id", 1]]
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."section_id" = ?[0m  [["section_id", 1]]
+  [1m[36mSection Destroy (0.1ms)[0m  [1m[31mDELETE FROM "sections" WHERE "sections"."id" = ?[0m  [["id", 1]]
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."department_id" = ?[0m  [["department_id", 1]]
+  [1m[36mDepartment Destroy (0.0ms)[0m  [1m[31mDELETE FROM "departments" WHERE "departments"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------
+SectionTest: test_Should_define_section_model
+---------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+SectionTest: test_Should_create_a_new_section_with_name
+-------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (17.5ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:47.001721"], ["updated_at", "2019-10-14 16:20:47.001721"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:47.020209"], ["updated_at", "2019-10-14 16:20:47.020209"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------
+SectionTest: test_lower_case_section_must_be_replaced_with_upcase
+-----------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:47.022084"], ["updated_at", "2019-10-14 16:20:47.022084"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:47.022907"], ["updated_at", "2019-10-14 16:20:47.022907"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------------------------------------------
+DepartmentsControllerTest: test_Should_not_show_create_button_for_non-admin_users
+---------------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$zK8isgGSArDxOCSGbxABw.X8iUg5LLW1Eaft3sPOyU3tqpKsFztmm"], ["created_at", "2019-10-14 16:20:47.025851"], ["updated_at", "2019-10-14 16:20:47.025851"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+DepartmentsControllerTest: test_Should_get_all_departments
+----------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$/o4ukV8hdAgXrXm.2/8neOAgzwzlP6cocndfKVX/ivVkfsJf1Ptr6"], ["created_at", "2019-10-14 16:20:47.042366"], ["updated_at", "2019-10-14 16:20:47.042366"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test@test.com"], ["encrypted_password", "$2a$04$6a/1BPhGpFxTIPKM19mt6.1Rof2dEOrK9R8andC8t6pZIo83IDUXm"], ["created_at", "2019-10-14 16:20:47.044797"], ["updated_at", "2019-10-14 16:20:47.044797"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 1ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------
+DepartmentsControllerTest: test_Should_navigate_to_new_department_on_click
+--------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$JKxjykae8EhKSLGILmWqYuMAgiywlXKRpIJqdBpfWzHLEvIgkatZ6"], ["created_at", "2019-10-14 16:20:47.054957"], ["updated_at", "2019-10-14 16:20:47.054957"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$CTpDsKWoZtehmkAbgUXjiOKQf78ucARCjIBPDEGPTCe26a5DXckEW"], ["created_at", "2019-10-14 16:20:47.057483"], ["updated_at", "2019-10-14 16:20:47.057483"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 1ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 7ms (Views: 1.4ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+DepartmentsControllerTest: test_Should_create_new_department
+------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$mMuuvlAthAOIS61fKeO1iu0o1AR9GLAl.1bY7J/JiwJoWOB2IvZey"], ["created_at", "2019-10-14 16:20:47.092902"], ["updated_at", "2019-10-14 16:20:47.092902"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$T7FtcgRFTtGAbOqtRfngkOiCIukMeAPwmesFx8cSwAECg6mkrD2x2"], ["created_at", "2019-10-14 16:20:47.101795"], ["updated_at", "2019-10-14 16:20:47.101795"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 6ms (Views: 6.0ms | ActiveRecord: 0.1ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 3ms (Views: 1.5ms | ActiveRecord: 0.1ms)
+Started POST "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "department"=>{"name"=>"New Dept"}, "commit"=>"Create Department"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "New Dept"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "NEW DEPT"], ["created_at", "2019-10-14 16:20:47.121599"], ["updated_at", "2019-10-14 16:20:47.121599"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/departments
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms)
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------------
+DepartmentsControllerTest: test_Should_redirect_to_home_page_if_not_logged_in
+-----------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$ruO8tyBFqkRBRV0uibiKFuuL5PBETun/3IkxLfqinTa0AcG9folva"], ["created_at", "2019-10-14 16:20:47.132499"], ["updated_at", "2019-10-14 16:20:47.132499"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_links.html.erb (0.2ms)
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.8ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------
+RoutesTest: test_Should_define_create-students_routes_properly
+--------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$Rzlw9e6xTGNplAs3G9m2GugOF6HPZT1fOF3HJqyyx2O4BhzHlbGvW"], ["created_at", "2019-10-14 16:20:47.148486"], ["updated_at", "2019-10-14 16:20:47.148486"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+RoutesTest: test_Should_define_create_department_routes_properly
+----------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$V3hq6AkBoC2XOGrhpmRyie5TON4jwgk..OUgOqku/0y2T98WwiIba"], ["created_at", "2019-10-14 16:20:47.152482"], ["updated_at", "2019-10-14 16:20:47.152482"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------
+RoutesTest: test_Should_define_department_get_routes_properly
+-------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$xbhbcWIXKBkSmZw2UOe3tOJ6Wl1K6WEqCRRsfKZ1oonFPin9x.aIu"], ["created_at", "2019-10-14 16:20:47.156080"], ["updated_at", "2019-10-14 16:20:47.156080"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (3.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------
+RoutesTest: test_Should_define_sections_get_routes_properly
+-----------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$Raa.9VeLiwqHVIiGpMoeI.cSF7DBd3/rw.eK6d6IKEHAOrRNfCtQi"], ["created_at", "2019-10-14 16:20:47.167329"], ["updated_at", "2019-10-14 16:20:47.167329"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------
+RoutesTest: test_Should_define_students_get_routes_properly
+-----------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (15.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$ApmFMfirk3QEP3.t9t9QU.NQ0orUkFS0cuI/mtSHUmkPg0Lm45x7C"], ["created_at", "2019-10-14 16:20:47.174276"], ["updated_at", "2019-10-14 16:20:47.174276"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------
+RoutesTest: test_Should_define_create_sections_routes_properly
+--------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$wh9s2IDRMeFsJq3Ri92oGu/Gt5kEmD9506EUo2TNenoejYr1EupN6"], ["created_at", "2019-10-14 16:20:47.200640"], ["updated_at", "2019-10-14 16:20:47.200640"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (3.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------
+RoutesTest: test_Should_define_root_properly
+--------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$WLu/YR2S.7eJ62Tt9I2T.eXg/qI3YT0BWDpqIyNeP59abnEKHjC6i"], ["created_at", "2019-10-14 16:20:47.207732"], ["updated_at", "2019-10-14 16:20:47.207732"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------
+DepartmentTest: test_Should_create_a_new_department_with_name
+-------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.5ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:47.211386"], ["updated_at", "2019-10-14 16:20:47.211386"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------------
+DepartmentTest: test_Should_define_Department_model
+---------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------------
+DepartmentTest: test_Should_not_save_departments_with_missing_names
+-------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE "departments"."name" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE "departments"."name" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------
+DepartmentTest: test_Should_not_save_non-unique_departments
+-----------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:47.216657"], ["updated_at", "2019-10-14 16:20:47.216657"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "EEE"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------
+DepartmentTest: test_lower_case_department_must_be_replaced_with_upcase
+-----------------------------------------------------------------------
+  [1m[35m (5.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "eee"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.4ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "EEE"], ["created_at", "2019-10-14 16:20:47.225708"], ["updated_at", "2019-10-14 16:20:47.225708"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------
+StudentsControllerTest: test_Should_not_show_create_button_for_non-admin_users
+------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (2.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$kcq7iXtYK37uJVKMD8/LF.vRVGdn30g2dKDCx8j3rZJQ6X/8kVnFa"], ["created_at", "2019-10-14 16:20:47.232915"], ["updated_at", "2019-10-14 16:20:47.232915"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by StudentsController#index as HTML
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+StudentsControllerTest: test_Should_create_new_Students
+-------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$buYmUFLHpLLp.GOTgRuo/OrrIY7IClY/bJ0kzZGWVa3MxaYXR1muC"], ["created_at", "2019-10-14 16:20:47.248662"], ["updated_at", "2019-10-14 16:20:47.248662"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$idM8n9KBD4lo7SL6pwtgbumPHIP3ZoWGc3isFQeqWfoh.VE97h7yC"], ["created_at", "2019-10-14 16:20:47.251565"], ["updated_at", "2019-10-14 16:20:47.251565"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 6ms (Views: 5.5ms | ActiveRecord: 0.0ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 5ms (Views: 3.7ms | ActiveRecord: 0.1ms)
+Started POST "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "department"=>{"name"=>"NEW DEPT"}, "commit"=>"Create Department"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "NEW DEPT"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "NEW DEPT"], ["created_at", "2019-10-14 16:20:47.277149"], ["updated_at", "2019-10-14 16:20:47.277149"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/departments
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.1ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.1ms)
+Started GET "/sections/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by SectionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.2ms)
+Started POST "/sections" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by SectionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "section"=>{"name"=>"A", "department_id"=>"1"}, "commit"=>"Create Section"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Create (0.1ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:47.298853"], ["updated_at", "2019-10-14 16:20:47.298853"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/sections
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+Started GET "/students/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 4ms (Views: 2.3ms | ActiveRecord: 0.1ms)
+Started POST "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "student"=>{"name"=>"Arjun", "department_id"=>"1", "section_id"=>"1", "email"=>"arjun@dev.com"}, "commit"=>"Create Student"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "Arjun"], ["LIMIT", 1]]
+  [1m[36mCACHE Section Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Arjun"], ["email", "arjun@dev.com"], ["created_at", "2019-10-14 16:20:47.321604"], ["updated_at", "2019-10-14 16:20:47.321604"], ["department_id", 1], ["section_id", 1], ["roll_no", "new-dept-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/students
+Completed 302 Found in 4ms (ActiveRecord: 0.5ms)
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.9ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+---------------------------------------------------------------------
+StudentsControllerTest: test_Should_navigate_to_new_students_on_click
+---------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$wA8zunpFsZfXLWtde9UziuLgu2wLemjbrBwok82ZuSSESmU14rduC"], ["created_at", "2019-10-14 16:20:47.331295"], ["updated_at", "2019-10-14 16:20:47.331295"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$eA6VzCtjRAVRfo30Ngv0t.uM6C56.DYKjMIvheSxI/eCEQ.CZw4.6"], ["created_at", "2019-10-14 16:20:47.333669"], ["updated_at", "2019-10-14 16:20:47.333669"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by StudentsController#index as HTML
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 1ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+Started GET "/students/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/new.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 5ms (Views: 1.7ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.7ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StudentsControllerTest: test_Should_get_all_students
+----------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$cnpPEMFGAwPFbPRlCqSGM./rdK8jnnXYvyrtmoVQMpSzzAzobU4gq"], ["created_at", "2019-10-14 16:20:47.350035"], ["updated_at", "2019-10-14 16:20:47.350035"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#index as HTML
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------
+StudentsControllerTest: test_Should_redirect_to_home_page_if_not_logged_in
+--------------------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (5.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$HIa95GE8.mM/j..ZGqgCJu1BdptoxPHw5lmPuQphNS.MG737HD4Ou"], ["created_at", "2019-10-14 16:20:47.362707"], ["updated_at", "2019-10-14 16:20:47.362707"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by StudentsController#index as HTML
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by Devise::SessionsController#new as HTML
+  Rendering /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/shared/_links.html.erb (0.1ms)
+  Rendered /home/vulli/.rvm/gems/ruby-2.6.3/gems/devise-4.7.1/app/views/devise/sessions/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.9ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StudentsControllerTest: test_Should_display_students_details
+------------------------------------------------------------
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "test_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "test_user@test.com"], ["encrypted_password", "$2a$04$vKjbFCSsZYsdNsuo9gZ73OmlrUuuqaonF/27nL2kfUAdF3kBhoF.2"], ["created_at", "2019-10-14 16:20:47.381879"], ["updated_at", "2019-10-14 16:20:47.381879"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin_user@test.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "admin") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin_user@test.com"], ["encrypted_password", "$2a$04$UkF.BxgjNHhsqCjGx4px0eKxTi74Ks3HdiunCdeKsm.Npf2bNf6Ei"], ["created_at", "2019-10-14 16:20:47.384160"], ["updated_at", "2019-10-14 16:20:47.384160"], ["admin", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by DepartmentsController#index as HTML
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+Started GET "/departments/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/new.html.erb within layouts/application
+  Rendered departments/new.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.1ms)
+Started POST "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "department"=>{"name"=>"NEW DEPT"}, "commit"=>"Create Department"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "departments" WHERE LOWER("departments"."name") = LOWER(?) LIMIT ?[0m  [["name", "NEW DEPT"], ["LIMIT", 1]]
+  [1m[36mDepartment Create (0.1ms)[0m  [1m[32mINSERT INTO "departments" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "NEW DEPT"], ["created_at", "2019-10-14 16:20:47.408502"], ["updated_at", "2019-10-14 16:20:47.408502"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/departments
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+Started GET "/departments" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by DepartmentsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering departments/index.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendered departments/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.1ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.1ms)
+Started GET "/sections/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by SectionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.2ms)
+Started POST "/sections" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by SectionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "section"=>{"name"=>"A", "department_id"=>"1"}, "commit"=>"Create Section"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Create (0.3ms)[0m  [1m[32mINSERT INTO "sections" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "A"], ["created_at", "2019-10-14 16:20:47.428296"], ["updated_at", "2019-10-14 16:20:47.428296"], ["department_id", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/sections
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+Started GET "/sections" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by SectionsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.1ms)
+Started GET "/students/new" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/new.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 3ms (Views: 1.8ms | ActiveRecord: 0.1ms)
+Started POST "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "student"=>{"name"=>"Arjun", "department_id"=>"1", "section_id"=>"1", "email"=>"arjun@dev.com"}, "commit"=>"Create Student"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mDepartment Load (0.1ms)[0m  [1m[34mSELECT "departments".* FROM "departments"[0m
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStudent Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "students" WHERE LOWER("students"."name") = LOWER(?) LIMIT ?[0m  [["name", "Arjun"], ["LIMIT", 1]]
+  [1m[36mCACHE Section Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "students"[0m
+  [1m[36mStudent Create (0.1ms)[0m  [1m[32mINSERT INTO "students" ("name", "email", "created_at", "updated_at", "department_id", "section_id", "roll_no") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Arjun"], ["email", "arjun@dev.com"], ["created_at", "2019-10-14 16:20:47.450539"], ["updated_at", "2019-10-14 16:20:47.450539"], ["department_id", 1], ["section_id", 1], ["roll_no", "new-dept-a-1"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/students
+Completed 302 Found in 5ms (ActiveRecord: 0.6ms)
+Started GET "/students" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (0.0ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  Rendered students/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms)
+Started GET "/students/1" for 127.0.0.1 at 2019-10-14 21:50:47 +0530
+Processing by StudentsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mStudent Load (0.1ms)[0m  [1m[34mSELECT  "students".* FROM "students" WHERE "students"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering students/show.html.erb within layouts/application
+  [1m[36mDepartment Load (0.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.0ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered students/show.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 4ms (Views: 2.2ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.5ms)[0m  [1m[31mrollback transaction[0m
